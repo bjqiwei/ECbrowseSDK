@@ -1,0 +1,22 @@
+HKLM
+{
+	SOFTWARE
+	{
+		MozillaPlugins
+		{
+			ForceRemove @yuntongxun.com/BrowserSDK
+			{
+				val Description = s 'Cloopen Browser SDK'
+				val Path = s '%MODULE%'
+				val ProductName = s 'Cloopen Browser SDK'
+				val Vendor = s 'yuntongxun'
+				val Version = s '1.1.12.27'
+				MimeTypes
+				{
+					application/yuntongxun-ecsdk-video-plugin
+					application/yuntongxun-ecsdk-plugin
+				}
+			}
+		}
+	}
+}

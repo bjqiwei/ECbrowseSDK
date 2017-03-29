@@ -1,0 +1,13 @@
+; ECBrowserPlugin.def : Declares the module parameters.
+
+LIBRARY
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE
+	DllInstall		PRIVATE
+	NP_GetEntryPoints   PRIVATE
+	NP_Initialize       PRIVATE
+	NP_Shutdown         PRIVATE

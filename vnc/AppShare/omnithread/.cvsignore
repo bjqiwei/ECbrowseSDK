@@ -1,0 +1,119 @@
+002C:nt.cpp:04E8B:1:14=49A0C89E:16=47d21313://				Package : omnithread
+// omnithread/nt.cc		Created : 6/95 tjr
+//
+//    Copyright (C) 1999 AT&T Laboratories Cambridge. All Rights Reserved.
+//
+//    This file is part of the omnithread library
+//
+//    The omnithread library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Library General Public
+//    License as published by the Free Software Foundation; either
+//    version 2 of the License, or (at your option) any later version.
+//
+//    This library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Library General Public License for more details.
+//
+//    You should have received a copy of the GNU Library General Public
+//    License along with this library; if not, write to the Free
+//    Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  
+//    02111-1307, USA
+//
+
+//
+// Implementation of OMNI thread abstraction for NT threads
+//
+
+#include <stdlib.h>
+#include <errno.h>
+#include "omnithread.h"
+#include <process.h>
+
+#define DB(x) // x 
+//#include <iostream.h> or #include <iostream> if DB is on.
+
+static void get_time_now(unsigned long* abs_sec, unsigned long* abs_nsec);
+
+///////////////////////////////////////////////////////////////////////////
+//
+// Mutex
+//
+///////////////////////////////////////////////////////////////////////////
+
+
+omni_mutex::omni_mutex(void)
+{
+    InitializeCriticalSection(&crit);
+}
+
+omni_mutex::~omni_mutex(void)
+{
+    DeleteCriticalSection(&crit);
+}
+
+void
+omni_mutex::lock(void)
+{
+    EnterCriticalSection(&crit);
+}
+
+void
+omni_mutex::unlock(void)
+{
+    LeaveCriticalSection(&crit);
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// Condition variable
+//
+///////////////////////////////////////////////////////////////////////////
+
+
+//
+// Condition variables are tricky to implement using NT synchronisation
+// primitives, since none of them have the atomic "release mutex and wait to be
+// signalled" which is central to the idea of a condition variable.  To get
+// around this the solution is to record which threads are waiting and
+// explicitly wake up those threads.
+//
+// Here we implement a condition variable using a list of waiting threads
+// (protected by a critical section), and a per-thread semaphore (which
+// actually only needs to be a binary semaphore).
+//
+// To wait on the cv, a thread puts itself on the list of waiting threads for
+// that cv, then releases the mutex and waits on its own personal semaphore.  A
+// signalling thread simply takes a thread from the head of the list and kicks
+// that thread's semaphore.  Broadcast is simply implemented by kicking the
+// semaphore of each waiting thread.
+//
+// The only other tricky part comes when a thread gets a timeout from a timed
+// wait on its semaphore.  Between returning with a timeout from the wait and
+// entering the critical section, a signalling thread could get in, kick the
+// waiting thread's semaphore and remove it from the list.  If this happens,
+// the waiting thread's semaphore is now out of step so it needs resetting, and
+// the thread should indicate that it was signalled rather than that it timed
+// out.
+//
+// It is possible that the thread calling wait or timedwait is not a
+// omni_thread. In this case we have to provide a temporary data structure,
+// i.e. for the duration of the call, for the thread to link itself on the
+// list of waiting threads. _internal_omni_thread_dummy provides such
+// a data structure and _internal_omni_thread_helper is a helper class to
+// deal with this special case for wait() and timedwait(). Once created,
+// the _internal_omni_thread_dummy is cached for use by the next wait() or
+// timedwait() call from a non-omni_thread. This is probably worth doing
+// because creating a Semaphore is quite heavy weight.
+
+class _internal_omni_thread_helper;
+
+class _internal_omni_thread_dummy : public omni_thread {
+public:
+  inline _internal_omni_thread_dummy() : next(0) { }
+  inline ~_internal_omni_thread_dummy() { }
+  friend class _internal_omni_thread_helper;
+private:
+  _internal_omni_thre

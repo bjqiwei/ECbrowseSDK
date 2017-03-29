@@ -1,0 +1,6 @@
+SCC = This is a Source Code Control file.
+
+[dsctrl.dsp]
+SCC_Aux_Path = 192.168.110.228:8888:核心研发二部
+SCC_Project_Name = $/数据会议/DSServer_linux/dsctrl/dsctrl
+

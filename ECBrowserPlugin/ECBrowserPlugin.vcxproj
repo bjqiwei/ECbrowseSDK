@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{936C0BD0-5F14-48F5-9962-1A636300D148}</ProjectGuid>
+    <Keyword>AtlProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>np$(ProjectName)</TargetName>
+    <OutDir>$(SolutionDir)build\$(PlatformName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(PlatformName)\obj.$(ProjectName).$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>np$(ProjectName)</TargetName>
+    <OutDir>$(SolutionDir)build\$(PlatformName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(PlatformName)\obj.$(ProjectName).$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;LOG4CPLUS_STATIC;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\interface;$(SolutionDir)log4cplus-1.2.0\include;$(SolutionDir)npapi-sdk\headers;$(SolutionDir)vnc;$(SolutionDir)\vnc\netComm\include;$(SolutionDir)\vnc\AppShare\include;$(SolutionDir)\jsoncpp-src-0.5.0\include\json;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <HeaderFileName>ECBrowserPlugin_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>ECBrowserPlugin_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>ECBrowserPlugin_p.c</ProxyFileName>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)ECBrowserPlugin.tlb</TypeLibraryName>
+      <DllDataFileName />
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <ModuleDefinitionFile>.\ECBrowserPlugin.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <RegisterOutput>false</RegisterOutput>
+      <AdditionalLibraryDirectories>$(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7;$(SolutionDir)\vnc\netComm\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ECsdk.lib;NetComm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/VERBOSE:LIB %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreLinkEvent>
+      <Command>cd.&gt;$(OutDir)Register.bat
+echo @echo off&gt;&gt;$(OutDir)Register.bat
+echo regsvr32 "%%~dp0$(TargetName)$(TargetExt)"&gt;&gt;$(OutDir)Register.bat
+
+cd.&gt;$(OutDir)UnRegister.bat
+echo @echo off&gt;&gt;$(OutDir)UnRegister.bat
+echo regsvr32 /u "%%~dp0$(TargetName)$(TargetExt)"&gt;&gt;$(OutDir)UnRegister.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>xcopy /y *.htm $(OutDir)..\
+xcopy /y $(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\*.wav $(OutDir)
+xcopy /y $(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\*.dll $(OutDir)
+xcopy /y $(SolutionDir)vnc\netComm\bin\*.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;LOG4CPLUS_STATIC;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\interface;$(SolutionDir)log4cplus-1.2.0\include;$(SolutionDir)npapi-sdk\headers;$(SolutionDir)vnc;$(SolutionDir)\vnc\netComm\include;$(SolutionDir)\vnc\AppShare\include;$(SolutionDir)\jsoncpp-src-0.5.0\include\json;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <HeaderFileName>ECBrowserPlugin_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>ECBrowserPlugin_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>ECBrowserPlugin_p.c</ProxyFileName>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)ECBrowserPlugin.tlb</TypeLibraryName>
+      <DllDataFileName />
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <ModuleDefinitionFile>.\ECBrowserPlugin.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <RegisterOutput>false</RegisterOutput>
+      <AdditionalLibraryDirectories>$(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7;$(SolutionDir)\vnc\netComm\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ECsdk.lib;NetComm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreLinkEvent>
+      <Command>cd.&gt;$(OutDir)Register.bat
+echo @echo off&gt;&gt;$(OutDir)Register.bat
+echo regsvr32 "%%~dp0$(TargetName)$(TargetExt)"&gt;&gt;$(OutDir)Register.bat
+
+cd.&gt;$(OutDir)UnRegister.bat
+echo @echo off&gt;&gt;$(OutDir)UnRegister.bat
+echo regsvr32 /u "%%~dp0$(TargetName)$(TargetExt)"&gt;&gt;$(OutDir)UnRegister.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>xcopy /y *.htm $(OutDir)..\
+xcopy /y $(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\*.wav $(OutDir)
+xcopy /y $(SolutionDir)YTX_PC_Full_SDK_v5.2.2.r7\*.dll $(OutDir)
+xcopy /y $(SolutionDir)vnc\netComm\bin\*.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vnc\CCPVncServer.cpp" />
+    <ClCompile Include="..\vnc\CCPVncViewer.cpp" />
+    <ClCompile Include="..\vnc\VncUtility.cpp" />
+    <ClCompile Include="ATLECSDK.cpp" />
+    <ClCompile Include="ATLVideoObject.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ECBrowserPlugin.cpp" />
+    <ClCompile Include="ECBrowserPlugin_i.c">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ECSDK.cpp" />
+    <ClCompile Include="ECSDKBase.cpp" />
+    <ClCompile Include="NPAPIECSDK.cpp" />
+    <ClCompile Include="NPAPIPluginBase.cpp" />
+    <ClCompile Include="NPAPIVideoObject.cpp" />
+    <ClCompile Include="npn_gate.cpp" />
+    <ClCompile Include="npp_gate.cpp" />
+    <ClCompile Include="np_entry.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="xdlldata.c">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\vnc\CCPVncServer.h" />
+    <ClInclude Include="..\vnc\CCPVncViewer.h" />
+    <ClInclude Include="..\vnc\Queue.h" />
+    <ClInclude Include="..\vnc\VncUtility.h" />
+    <ClInclude Include="ATLECSDK.h" />
+    <ClInclude Include="ATLVideoObject.h" />
+    <ClInclude Include="dllmain.h" />
+    <ClInclude Include="ECBrowserPlugin_i.h" />
+    <ClInclude Include="ECSDK.h" />
+    <ClInclude Include="ECSDKBase.h" />
+    <ClInclude Include="NPAPIECSDK.h" />
+    <ClInclude Include="NPAPIPluginBase.h" />
+    <ClInclude Include="NPAPIVideoObject.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="xdlldata.h" />
+    <ClInclude Include="ZBase64.h" />
+    <ClInclude Include="_IATLECSDKEvents_CP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ECBrowserPlugin.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ATLECSDK.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="ATLECSDK.rgs" />
+    <None Include="ATLVideoObject.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="ATLVideoObject.rgs" />
+    <None Include="ECBrowserPlugin.def" />
+    <None Include="ECBrowserPlugin.rgs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ECBrowserPlugin.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="ATLECSDK.bmp" />
+    <Image Include="ATLVideoObject.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\jsoncpp-src-0.5.0\makefiles\vs71\lib_json.vcxproj">
+      <Project>{b84f7231-16ce-41d8-8c08-7b523ff4225b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\log4cplus-1.2.0\msvc12\log4cplusS.vcxproj">
+      <Project>{bec0cd2f-60cd-40e2-a89b-ab10e902f1d5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\vnc\AppShare\AppShareDll\AppShareDll.vcxproj">
+      <Project>{d51b6f36-e252-4b26-bc68-178ae0d26978}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="ECBrowserPlugin.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

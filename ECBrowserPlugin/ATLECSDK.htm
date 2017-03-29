@@ -1,0 +1,1178 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" pageencoding="UTF-8" />
+<HTML>
+<HEAD>
+<TITLE>test page for object ECSDK</TITLE>
+</HEAD>
+<BODY onload="load();">
+
+
+<object id="ecsdkobject"></object>
+<hr/>
+    <h2> 初始化和配置</h2>
+    <input type="button" value="设置服务器地址" onclick="SetServerAddress();" />
+    <front>ConnectorIP</front><input type="text" id="SetServerAddress_Connector" value="123.57.33.80" />
+    <front>Connector端口</front><input type="number" id="SetServerAddress_ConnectorPort" value="8085"/>
+    <front>文件服务器IP</front><input type="text" id="SetServerAddress_FileServer" value="123.56.135.81" />
+    <front>文件服务器端口</front><input type="text" id="SetServerAddress_FileServerPort" value="8090"/>
+
+    <input type="button" value="设置内置DNS" onclick="SetInternalDNS();" />
+    <front>是否启用</front>
+    <select id="SetInternalDNS_enable">
+        <option value="false">false</option>
+        <option value="true" selected="selected">true</option>
+    </select>
+    <front>DNS</front><input type="text" id="SetInternalDNS_dns" />
+    <front>端口</front><input type="number" id="SetInternalDNS_port" />
+
+    <input type="button" value="设置个人资料" onclick="SetPersonInfo();" />
+    <input type="button" value="获取个人资料" onclick="GetPersonInfo();" />
+        <front>用户名称</front><input type="text" id="GetPersonInfo_username" />
+    <input type="button" value="获取个人状态" onclick="GetUserState();" />
+    <input type="button" value="获取错误描述" onclick="QueryErrorDescribe();" />
+<hr/>
+    <h2>音视频呼叫</h2>
+    <input type="button" value="初始化" onclick="Initialize();" />
+    <input type="button" value="释放" onclick="UnInitialize();" />
+    <input type="button" value="登录" onclick="Login();" />
+    <input type="button" value="登出" onclick="Logout();" />
+    <input type="button" value="回拨" onclick="MakeCallBack();">
+    <front>主叫</front><input type="text" id="MakeCallBack_caller" value="" />
+    <front>被叫</front><input type="text" id="MakeCallBack_called" value="" />
+    <front>主叫显示号码</front><input type="text" id="MakeCallBack_callerDisplay" value="" />
+    <front>被叫号码显示</front><input type="text" id="MakeCallBack_calledDisplay" value="" />
+<hr/>
+    <input type="button" value="外呼" onclick="MakeCall();">
+    <select id="callType">
+        <option value="0">音频VOICE</option>
+        <option value="1" selected="selected">视频VIDEO</option>
+        <option value="2">落地</option>
+    </select>
+    <input type="text" id="called" value="4001079737" />
+    <input type="button" value="摘机" onclick="AcceptCall();"/>
+    <input type="text" id="acceptCallId" value="" />
+    <input type="button" value="挂机" onclick="ReleaseCall();"/>
+    <front>CallId</front><input type="text" id="releaseCallId" value="" />
+    <front>原因</front><input type="number" id="releaseReason" value="0" />
+    <input type="button" value="获取摄像头信息" onclick="GetCameraInfo();"/>
+    <input type="button" value="设置摄像头" onclick="SelectCamera();" />
+    <input type="text" id="SelectCamera_cameraIndex" value="0" />
+    <input type="text" id="SelectCamera_capabilityIndex" value="0" />
+    <input type="text" id="SelectCamera_fps" value="0" />
+    <input type="text" id="SelectCamera_rotate" value="0" />
+    <input type="text" id="SelectCamera_force" value="0" />
+
+    <input type="button" value="发送DTMF" onclick="SendDTMF();" />
+        <input type="text" id="sendDTMF" value="0" />
+    <input type="button" value="获取当前通话CallId" onclick="GetCurrentCall();" />
+    <input type="button" value="静音" onclick="SetMute();" />
+    <select id="SetMute_mute">
+        <option value="false">否</option>
+        <option value="true" selected="selected">是</option>
+    </select>
+    <input type="button" value="获取静音" onclick="GetMuteStatus();" />
+
+    <input type="button" value="软静音" onclick="SetSoftMute();" />
+    <front>CallId</front><input type="text" id="SetSoftMute_CallId" value="" />
+    <select id="SetSoftMute_mute">
+        <option value="false">否</option>
+        <option value="true" selected="selected">是</option>
+    </select>
+
+    <input type="button" value="获取软静音" onclick="GetSoftMuteStatus();" />
+    <front>CallId</front><input type="text" id="GetSoftMuteStatus_CallId" value="" />
+<hr/>
+    <h2> IM</h2>
+    <input type="button" value="发送文本消息" onclick="SendTextMessage();" />
+    <front>接收者</front><input type="text" id="SendTextMessage_receiver" value="87978100000108" />
+    <front>内容</front><input type="text" id="SendTextMessage_message" value="" />
+    <front>类型</front><input type="number" id="SendTextMessage_type" value="1" />
+    <front>UserData</front><input type="text" id="SendTextMessage_userdata" value="" />
+
+    <input type="button" value="发送文件消息" onclick="SendMediaMessage();" />
+    <front>接收者</front><input type="text" id="SendMediaMessage_receiver" value="87978100000108" />
+    <front>文件</front><input type="text" id="SendMediaMessage_fileName" value="" />
+    <front>类型</front><input type="number" id="SendMediaMessage_type" value="6" />
+    <front>UserData</front><input type="text" id="SendMediaMessage_userdata" value="" />
+
+    <input type="button" value="下载文件" onclick="DownloadFileMessage();" />
+        <front>发送者</front><input type="text" id="DownloadFileMessage_sender" value="" />
+        <front>接收者</front><input type="text" id="DownloadFileMessage_recv" value="" />
+        <front>URL</front><input type="text" id="DownloadFileMessage_url" value="" />
+        <front>文件路径</front><input type="text" id="DownloadFileMessage_fileName" value="d:\fileName.log" />
+        <front>MsgId</front><input type="text" id="DownloadFileMessage_msgId" value="" />
+        <front>类型</front><input type="number" id="DownloadFileMessage_type" value="" />
+    <hr />
+    <input type="button" value="删除消息" onclick="DeleteMessage();" />
+    <hr/>
+    <input type="button" value="录音(按下按钮开始录音，放开停止)" onmousedown="StartVoiceRecording();" onmouseup="StopVoiceRecording();" />
+        <front>文件名称</front><input type="text" id="StartVoiceRecording_fileName" value="d:\record.amr" />
+
+    <input type="button" value="放音" onclick="PlayVoiceMsg();" />
+        <front>文件名称</front><input type="text" id="PlayVoiceMsg_fileName" value="d:\record.amr" />
+    <input type="button" value="停止放音" onclick="StopVoiceMsg();" />
+
+    <input type="button" value="获取录音时长" onclick="GetVoiceDuration();" />
+        <front>文件名称</front><input type="text" id="GetVoiceDuration_fileName" value="d:\record.amr" />
+
+<hr/>
+    <h2> 远程控制</h2>
+    <input type="button" value="请求桌面共享" onclick="RequestShareDesktop();" />
+    <front>远端ID</front><input type="text" id="remoteId" value="87978100000108" />
+    <front>服务器IP</front><input type="text" id="serverIP" value="192.168.178.184" />
+    <front>服务器端口</front><input type="number" id="serverPort" value="9000" />
+
+    <input type="button" value="停止桌面共享" onclick="StopShareDesktop();" />
+    <input type="button" value="请求控制" onclick="RequestRemoteControl();" />
+    <input type="button" value="停止控制" onclick="StopRemoteControl();" />
+
+<hr/>
+    <input type="button" value="同意共享桌面" onclick="AcceptShareDesktop();" />
+    <input type="button" value="停止共享桌面" onclick="StopShareDesktop();" />
+    <input type="button" value="同意远程控制" onclick="AcceptRemoteControl();" />
+    <input type="button" value="停止远程控制" onclick="StopRemoteControl();" />
+
+<hr/>
+    <input type="button" value="本地拍照" onclick="GetLocalVideoSnapshotEx();" />
+        <front>CallId</front><input type="text" id="localSnapshotCallId" value="" />
+    <input type="button" value="远端拍照" onclick="GetRemoteVideoSnapshotEx();" />
+        <front>CallId</front><input type="text" id="remoteSnapshotCallId" value="" />
+
+	<input type="button" value="上传文件" onclick="UploadVTMFile();" />
+		<front>公司ID</front><input type="text" id="UploadVTMFile_companyId" value="" />
+		<front>公司密码</front><input type="text" id="UploadVTMFile_companyPwd" value="" />
+		<front>文件名</front><input type="text" id="UploadVTMFile_fileName" value="" />
+		<front>回调URL</front><input type="text" id="UploadVTMFile_callbackUrl" value="" />
+	<input type="button" value="上传数据" onclick="UploadVTMBuf();" />
+		<front>公司ID</front><input type="text" id="UploadVTMBuf_companyId" value="" />
+		<front>公司密码</front><input type="text" id="UploadVTMBuf_companyPwd" value="" />
+		<front>文件名</front><input type="text" id="UploadVTMBuf_Name" value="" />
+		<front>数据</front><input type="text" id="UploadVTMBuf_Data" value="" />
+		<front>回调URL</front><input type="text" id="UploadVTMBuf_callbackUrl" value="" />
+
+<hr />
+    <input type="button" value="开始录屏" onclick="StartRecordScreen();" />
+        <front>CallId</front><input type="text" id="recordScreenCallId" value="" />
+        <front>文件</front><input type="text" id="recordScreenFileName" value="d:\screen.mp4" />
+    <input type="button" value="停止" onclick="StopRecordScreen();" />
+        <front>CallId</front><input type="text" id="stopRecordScreenCallId" value="" />
+
+<ul id="textbody"><li></li></ul>
+    <script type="text/javascript">
+        function load() {
+            // 创建EC SDK 插件
+
+            var ecsdk = document.createElement("object");
+            if (window.ActiveXObject || "ActiveXObject" in window)
+                ecsdk.classid = "CLSID:56700691-19C2-4204-85E8-8B15198B13DC";
+            else
+                ecsdk.type = "application/yuntongxun-ecsdk-plugin";
+            ecsdk.id = "ECSDK";
+
+            document.body.insertBefore(ecsdk, ecsdkobject);
+
+
+            // 创建视频显示插件
+            var localView = document.createElement("object");
+
+            if (window.ActiveXObject || "ActiveXObject" in window)
+                localView.classid = "CLSID:4CB3537E-EF5A-4493-A3FC-EC14C16C0760";
+            else
+                localView.type = "application/yuntongxun-ecsdk-video-plugin";
+
+            localView.id = "localView";
+            localView.width = 200;
+            localView.height = 200;
+            document.body.insertBefore(localView, ecsdkobject);
+
+            // 创建视频显示插件
+            var remoteView = document.createElement("object");
+
+            if (window.ActiveXObject || "ActiveXObject" in window)
+                remoteView.classid = "CLSID:4CB3537E-EF5A-4493-A3FC-EC14C16C0760";
+            else
+                remoteView.type = "application/yuntongxun-ecsdk-video-plugin";
+
+            remoteView.id = "remoteView";
+            remoteView.width = 200;
+            remoteView.height = 200;
+            document.body.insertBefore(remoteView, ecsdkobject);
+
+
+            // 创建远程桌面窗口
+            var remoteDesktop = document.createElement("object");
+
+            if (window.ActiveXObject || "ActiveXObject" in window)
+                remoteDesktop.classid = "CLSID:4CB3537E-EF5A-4493-A3FC-EC14C16C0760";
+            else
+                remoteDesktop.type = "application/yuntongxun-ecsdk-video-plugin";
+
+            remoteDesktop.id = "remoteDesktop";
+            remoteDesktop.width = 400;
+            remoteDesktop.height = 400;
+            document.body.insertBefore(remoteDesktop, ecsdkobject);
+
+            //基本配置接口
+            RegisterCallBack(ECSDK, "onLogInfo", onLogInfo);
+            RegisterCallBack(ECSDK, "onLogOut", onLogOut);
+            RegisterCallBack(ECSDK, "onConnectState", onConnectState);
+            RegisterCallBack(ECSDK, "onSetPersonInfo", onSetPersonInfo);
+            RegisterCallBack(ECSDK, "onGetPersonInfo", onGetPersonInfo);
+            RegisterCallBack(ECSDK, "onGetUserState", onGetUserState);
+            RegisterCallBack(ECSDK, "onPublishPresence", onPublishPresence);
+            RegisterCallBack(ECSDK, "onReceiveFriendsPublishPresence", onReceiveFriendsPublishPresence);
+            RegisterCallBack(ECSDK, "onSoftVersion", onSoftVersion);
+            RegisterCallBack(ECSDK, "onGetOnlineMultiDevice", onGetOnlineMultiDevice);
+            RegisterCallBack(ECSDK, "onReceiveMultiDeviceState", onReceiveMultiDeviceState);
+
+            //音视频通话
+            RegisterCallBack(ECSDK, "onMakeCallBack", onMakeCallBack);
+            RegisterCallBack(ECSDK, "onCallEvents", onCallEvents);
+            RegisterCallBack(ECSDK, "onCallIncoming", onCallIncoming);
+            RegisterCallBack(ECSDK, "onDtmfReceived", onDtmfReceived);
+            RegisterCallBack(ECSDK, "onSwitchCallMediaTypeRequest", onSwitchCallMediaTypeRequest);
+            RegisterCallBack(ECSDK, "onSwitchCallMediaTypeResponse", onSwitchCallMediaTypeResponse);
+            RegisterCallBack(ECSDK, "onRemoteVideoRatio", onRemoteVideoRatio);
+
+            //IM即时消息
+            RegisterCallBack(ECSDK, "onOfflineMessageCount", onOfflineMessageCount);
+            RegisterCallBack(ECSDK, "onGetOfflineMessage", onGetOfflineMessage);
+            RegisterCallBack(ECSDK, "onOfflineMessageComplete", onOfflineMessageComplete);
+            RegisterCallBack(ECSDK, "onReceiveOfflineMessage", onReceiveOfflineMessage);
+            RegisterCallBack(ECSDK, "onReceiveMessage", onReceiveMessage);
+            RegisterCallBack(ECSDK, "onReceiveFile", onReceiveFile);
+            RegisterCallBack(ECSDK, "onDownloadFileComplete", onDownloadFileComplete);
+            RegisterCallBack(ECSDK, "onRateOfProgressAttach", onRateOfProgressAttach);
+            RegisterCallBack(ECSDK, "onSendTextMessage", onSendTextMessage);
+            RegisterCallBack(ECSDK, "onSendMediaFile", onSendMediaFile);
+            RegisterCallBack(ECSDK, "onDeleteMessage", onDeleteMessage);
+            RegisterCallBack(ECSDK, "onOperateMessage", onOperateMessage);
+            RegisterCallBack(ECSDK, "onReceiveOpreateNoticeMessage", onReceiveOpreateNoticeMessage);
+            RegisterCallBack(ECSDK, "onUploadVTMFileOrBuf", onUploadVTMFileOrBuf);
+
+            //群组接口
+            RegisterCallBack(ECSDK, "onCreateGroup", onCreateGroup);
+            RegisterCallBack(ECSDK, "onDismissGroup", onDismissGroup);
+            RegisterCallBack(ECSDK, "onQuitGroup", onQuitGroup);
+            RegisterCallBack(ECSDK, "onJoinGroup", onJoinGroup);
+            RegisterCallBack(ECSDK, "onReplyRequestJoinGroup", onReplyRequestJoinGroup);
+            RegisterCallBack(ECSDK, "onInviteJoinGroup", onInviteJoinGroup);
+            RegisterCallBack(ECSDK, "onReplyInviteJoinGroup", onReplyInviteJoinGroup);
+            RegisterCallBack(ECSDK, "onQueryOwnGroup", onQueryOwnGroup);
+            RegisterCallBack(ECSDK, "onQueryGroupDetail", onQueryGroupDetail);
+            RegisterCallBack(ECSDK, "onModifyGroup", onModifyGroup);
+            RegisterCallBack(ECSDK, "onSearchPublicGroup", onSearchPublicGroup);
+            RegisterCallBack(ECSDK, "onQueryGroupMember", onQueryGroupMember);
+            RegisterCallBack(ECSDK, "onDeleteGroupMember", onDeleteGroupMember);
+            RegisterCallBack(ECSDK, "onQueryGroupMemberCard", onQueryGroupMemberCard);
+            RegisterCallBack(ECSDK, "onModifyGroupMemberCard", onModifyGroupMemberCard);
+            RegisterCallBack(ECSDK, "onForbidMemberSpeakGroup", onForbidMemberSpeakGroup);
+            RegisterCallBack(ECSDK, "onSetGroupMessageRule", onSetGroupMessageRule);
+
+            //服务器下发的群组相关通知
+            RegisterCallBack(ECSDK, "onReceiveGroupNoticeMessage", onReceiveGroupNoticeMessage);
+
+            //音频播放回调接口
+            RegisterCallBack(ECSDK, "onRecordingTimeOut", onRecordingTimeOut);
+            RegisterCallBack(ECSDK, "onFinishedPlaying", onFinishedPlaying);
+            RegisterCallBack(ECSDK, "onRecordingAmplitude", onRecordingAmplitude);
+
+            //会议
+            RegisterCallBack(ECSDK, "onMeetingIncoming", onMeetingIncoming);
+            RegisterCallBack(ECSDK, "onReceiveInterphoneMeetingMessage", onReceiveInterphoneMeetingMessage);
+            RegisterCallBack(ECSDK, "onReceiveVoiceMeetingMessage", onReceiveVoiceMeetingMessage);
+            RegisterCallBack(ECSDK, "onReceiveVideoMeetingMessage", onReceiveVideoMeetingMessage);
+            RegisterCallBack(ECSDK, "onCreateMultimediaMeeting", onCreateMultimediaMeeting);
+            RegisterCallBack(ECSDK, "onJoinMeeting", onJoinMeeting);
+            RegisterCallBack(ECSDK, "onExitMeeting", onExitMeeting);
+            RegisterCallBack(ECSDK, "onQueryMeetingMembers", onQueryMeetingMembers);
+            RegisterCallBack(ECSDK, "onDismissMultiMediaMeeting", onDismissMultiMediaMeeting);
+            RegisterCallBack(ECSDK, "onQueryMultiMediaMeetings", onQueryMultiMediaMeetings);
+            RegisterCallBack(ECSDK, "onDeleteMemberMultiMediaMeeting", onDeleteMemberMultiMediaMeeting);
+            RegisterCallBack(ECSDK, "onInviteJoinMultiMediaMeeting", onInviteJoinMultiMediaMeeting);
+            RegisterCallBack(ECSDK, "onCreateInterphoneMeeting", onCreateInterphoneMeeting);
+            RegisterCallBack(ECSDK, "onExitInterphoneMeeting", onExitInterphoneMeeting);
+            RegisterCallBack(ECSDK, "onSetMeetingSpeakListen", onSetMeetingSpeakListen);
+            RegisterCallBack(ECSDK, "onControlInterphoneMic", onControlInterphoneMic);
+            RegisterCallBack(ECSDK, "onPublishVideo", onPublishVideo);
+            RegisterCallBack(ECSDK, "onUnpublishVideo", onUnpublishVideo);
+            RegisterCallBack(ECSDK, "onRequestConferenceMemberVideo", onRequestConferenceMemberVideo);
+            RegisterCallBack(ECSDK, "onCancelConferenceMemberVideo", onCancelConferenceMemberVideo);
+
+            //远程控制
+            RegisterCallBack(ECSDK, "onRequestShareDesktopResult", onRequestShareDesktopResult);
+            RegisterCallBack(ECSDK, "onStopShareDesktopResult", onStopShareDesktopResult);
+            RegisterCallBack(ECSDK, "onRequestRemoteControlResult", onRequestRemoteControlResult);
+            RegisterCallBack(ECSDK, "onStopRemoteControlResult", onStopRemoteControlResult);
+
+            RegisterCallBack(ECSDK, "onRequestShareDesktop", onRequestShareDesktop);
+            RegisterCallBack(ECSDK, "onStopShareDesktop", onStopShareDesktop);
+            RegisterCallBack(ECSDK, "CancelRequestShareDesktopEvent", CancelRequestShareDesktopEvent);
+            RegisterCallBack(ECSDK, "onRequestRemoteControl", onRequestRemoteControl);
+            RegisterCallBack(ECSDK, "CancelRequestDesktopControlEvent", CancelRequestDesktopControlEvent);
+            RegisterCallBack(ECSDK, "onStopRemoteControl", onStopRemoteControl);
+            RegisterCallBack(ECSDK, "onStartDesktopShare", onStartDesktopShare);
+            RegisterCallBack(ECSDK, "TellerShareDesktopWndSizeEvent", TellerShareDesktopWndSizeEvent);
+            RegisterCallBack(ECSDK, "TellerCancelRequestDesktopControlEvent", TellerCancelRequestDesktopControlEvent);
+
+        }
+        var callid;
+
+        function SetServerAddress()
+        {
+            var result = ECSDK.SetServerAddress(document.getElementById("SetServerAddress_Connector").value,
+                document.getElementById("SetServerAddress_ConnectorPort").value,
+                document.getElementById("SetServerAddress_FileServer").value,
+                document.getElementById("SetServerAddress_FileServerPort").value);
+            insertLog("SetServerAddress:" + result);
+        }
+
+        function SetInternalDNS()
+        {
+            var result = ECSDK.SetInternalDNS(document.getElementById("SetInternalDNS_enable").value,
+                document.getElementById("SetInternalDNS_dns").value,
+                document.getElementById("SetInternalDNS_port").value);
+
+            insertLog("SetInternalDNS:" + result);
+        }
+         
+
+        function Initialize() {
+            var result = ECSDK.Initialize();
+            ECSDK.SetTraceFlag(99, "d:\\ecsdk.log");
+            ECSDK.SetVideoView(remoteView.HWND, localView.HWND);
+            ECSDK.SetCodecEnabled(7, false);
+            insertLog("Initialize:" + result);
+            insertLog("appDataDir:" + ECSDK.appDataDir);
+        }
+        function UnInitialize() {
+            var result = ECSDK.UnInitialize();
+            insertLog("UnInitialize:" + result);
+        }
+        function Login() {
+            var info = new Object();
+            info.authType = 3;
+            info.username = "87978100000107";
+            info.appKey = "8a48b5514e5298b9014e6801bfb71521";
+            //info.appToken = "17E24E5AFDB6D0C1EF32F3533494502B";
+            info.userPassword = "SvIWq50E";
+            var result = ECSDK.Login(info);
+            insertLog("Login:" + result);
+        }
+
+        function Logout()
+        {
+            var result = ECSDK.Logout();
+            insertLog("Logout:" + result);
+        }
+
+        function MakeCallBack()
+        {
+            var matchKey = new Object();
+            var result = ECSDK.MakeCallBack(matchKey,
+                document.getElementById("MakeCallBack_caller").value,
+                document.getElementById("MakeCallBack_called").value,
+                document.getElementById("MakeCallBack_callerDisplay").value,
+                document.getElementById("MakeCallBack_calledDisplay").value);
+            insertLog("MakeCallBack:" + result);
+        }
+
+        function MakeCall() {
+            var callid = new Object();
+            var result = ECSDK.MakeCall(callid, document.getElementById("callType").value, document.getElementById("called").value);
+            document.getElementById("acceptCallId").value = callid.value;
+            document.getElementById("releaseCallId").value = callid.value;
+            document.getElementById("localSnapshotCallId").value = callid.value;
+            document.getElementById("remoteSnapshotCallId").value = callid.value;
+            document.getElementById("recordScreenCallId").value = callid.value;
+            document.getElementById("stopRecordScreenCallId").value = callid.value;
+            callid = callid.value;
+
+            insertLog("MakeCall:" + result + ",callid:" + JSON.stringify(callid));
+        }
+        
+        function AcceptCall() {
+            var result = ECSDK.AcceptCall(document.getElementById("acceptCallId").value);
+            insertLog("AcceptCall:" + result);
+        }
+
+        function ReleaseCall() {
+            var result = ECSDK.ReleaseCall(document.getElementById("releaseCallId").value,
+                document.getElementById("releaseReason").value);
+            insertLog("ReleaseCall:" + result);
+        }
+
+        function SetPersonInfo()
+        {
+            var matchKey = new Object();
+            var info = new Object();
+            info.version = 1000000;
+            info.sex = 1;
+            info.nickName = "qiwei";
+            info.birth = "20150607";
+            info.sign = "sign by qiwei";
+            var result = ECSDK.SetPersonInfo(matchKey, info);
+            insertLog("SetPersonInfo:" + result + ",matchKey:" + JSON.stringify(matchKey));
+        }
+
+        function GetPersonInfo()
+        {
+            var matchKey = new Object();
+            var result = ECSDK.GetPersonInfo(matchKey, document.getElementById("GetPersonInfo_username").value);
+            insertLog("GetPersonInfo:" + result);
+        }
+
+        function GetUserState()
+        {
+            var matchKey = new Object();
+            var info = new Array();
+            info.push("qiwei");
+            info.push("20150607");
+            info.push("sign by qiwei");
+            var result = ECSDK.GetUserState(matchKey, info);
+            insertLog("GetUserState:" + result + ",matchKey:" + JSON.stringify(matchKey));
+        }
+
+        function QueryErrorDescribe() {
+            var des = new Object();
+            var errCode = 559999;
+            var result = ECSDK.QueryErrorDescribe(des, errCode);
+            insertLog("QueryErrorDescribe:" + result + ",description:" + des);
+        }
+
+        function GetCameraInfo() {
+            var info = new Array();
+            var result = ECSDK.GetCameraInfo(info);
+            insertLog("GetCameraInfo:" + result + ",:" + JSON.stringify(info));
+        }
+
+        function SelectCamera()
+        {
+            var result = ECSDK.SelectCamera(document.getElementById("SelectCamera_cameraIndex").value,
+                document.getElementById("SelectCamera_capabilityIndex").value,
+                document.getElementById("SelectCamera_fps").value,
+                document.getElementById("SelectCamera_rotate").value,
+                document.getElementById("SelectCamera_force").value);
+            insertLog("SelectCamera:" + result);
+        }
+
+        function SendDTMF() {
+            var result = ECSDK.SendDTMF(callid, document.getElementById("sendDTMF").value);
+            insertLog("SendDTMF:" + result);
+        }
+
+        function GetCurrentCall()
+        {
+            var result = ECSDK.GetCurrentCall();
+            insertLog("GetCurrentCall:" + result);
+        }
+
+        function SetMute()
+        {
+            var result = ECSDK.SetMute(document.getElementById("SetMute_mute").value);
+            insertLog("SetMute:" + result);
+        }
+
+        function GetMuteStatus()
+        {
+            var result = ECSDK.GetMuteStatus();
+            insertLog("GetMuteStatus:" + result);
+        }
+
+        function SetSoftMute()
+        {
+            var result = ECSDK.SetSoftMute(document.getElementById("SetSoftMute_CallId").value,
+                document.getElementById("SetSoftMute_mute").value);
+            insertLog("SetSoftMute:" + result);
+        }
+
+        function GetSoftMuteStatus()
+        {
+            var mute = new Object();
+            var result = ECSDK.GetSoftMuteStatus(document.getElementById("GetSoftMuteStatus_CallId").value,
+                mute);
+            insertLog("GetSoftMuteStatus:" + result + ",mute:" + JSON.stringify(mute));
+        }
+
+        function SendTextMessage()
+        {
+            var matchKey = new Object();
+            var msgId = new Object();
+            var result = ECSDK.SendTextMessage(matchKey,
+                document.getElementById("SendTextMessage_receiver").value,
+                document.getElementById("SendTextMessage_message").value,
+                document.getElementById("SendTextMessage_type").value,
+                document.getElementById("SendTextMessage_userdata").value,
+                msgId);
+            insertLog("SendTextMessage:" + result+",matchKey:"+ JSON.stringify(matchKey)+",msgId:"+JSON.stringify(msgId));
+        }
+
+
+        function SendMediaMessage() {
+            var matchKey = new Object();
+            var msgId = new Object();
+            var result = ECSDK.SendMediaMessage(matchKey,
+                document.getElementById("SendMediaMessage_receiver").value,
+                document.getElementById("SendMediaMessage_fileName").value,
+                document.getElementById("SendMediaMessage_type").value,
+                document.getElementById("SendMediaMessage_userdata").value,
+                msgId);
+            insertLog("SendMediaMessage:" + result + ",matchKey:" + JSON.stringify(matchKey) + ",msgId:" + JSON.stringify(msgId));
+        }
+
+        function DownloadFileMessage()
+        {
+            var matchKey = new Object();
+            var result = ECSDK.DownloadFileMessage(matchKey,
+                document.getElementById("DownloadFileMessage_sender").value,
+                document.getElementById("DownloadFileMessage_recv").value,
+                document.getElementById("DownloadFileMessage_url").value,
+                document.getElementById("DownloadFileMessage_fileName").value,
+                document.getElementById("DownloadFileMessage_msgId").value,
+                document.getElementById("DownloadFileMessage_type").value);
+
+            insertLog("DownloadFileMessage:" + result);
+        }
+
+        function StartVoiceRecording()
+        {
+            var result = ECSDK.StartVoiceRecording(document.getElementById("StartVoiceRecording_fileName").value,"");
+            insertLog("StartVoiceRecording:" + result);
+        }
+
+        function StopVoiceRecording()
+        {
+            ECSDK.StopVoiceRecording();
+            insertLog("StopVoiceRecording:");
+        }
+
+        function PlayVoiceMsg() {
+            var result = ECSDK.PlayVoiceMsg(document.getElementById("PlayVoiceMsg_fileName").value, "");
+            insertLog("PlayVoiceMsg:" + result);
+        }
+
+        function StopVoiceMsg()
+        {
+            ECSDK.StopVoiceMsg();
+            insertLog("StopVoiceMsg");
+        }
+
+        function GetVoiceDuration()
+        {
+            var duration = new Object();
+            var result = ECSDK.GetVoiceDuration(document.getElementById("GetVoiceDuration_fileName").value, duration);
+            insertLog("GetVoiceDuration:" + result + "," + document.getElementById("GetVoiceDuration_fileName").value
+                + ":duration:" + duration.value);
+
+        }
+
+        function RequestShareDesktop()
+        {
+            var result = ECSDK.RequestShareDesktop(
+                document.getElementById("remoteId").value,
+                document.getElementById("serverIP").value,
+                document.getElementById("serverPort").value,
+                remoteDesktop.HWND);
+            insertLog("RequestShareDesktop:" + result);
+        }
+
+        function StopShareDesktop()
+        {
+            var result = ECSDK.StopShareDesktop();
+            insertLog("StopShareDesktop:" + result);
+        }
+
+        function RequestRemoteControl()
+        {
+            var result = ECSDK.RequestRemoteControl();
+            insertLog("RequestRemoteControl:" + result);
+        }
+
+        function StopRemoteControl()
+        {
+            var result = ECSDK.StopRemoteControl();
+            insertLog("StopRemoteControl:" + result);
+        }
+
+        function AcceptShareDesktop()
+        {
+            var result = ECSDK.AcceptShareDesktop();
+            insertLog("AcceptShareDesktop:" + result);
+        }
+
+        function AcceptRemoteControl()
+        {
+            var result = ECSDK.AcceptRemoteControl();
+            insertLog("AcceptRemoteControl:" + result);
+        }
+
+        function GetLocalVideoSnapshotEx()
+        {
+            var data = new Object();
+            var size = new Object();
+            var width = new Object();
+            var height = new Object();
+
+            var result = ECSDK.GetLocalVideoSnapshotEx(document.getElementById("localSnapshotCallId").value,
+                data, size, width, height);
+
+            insertLog("GetLocalVideoSnapshotEx,data:" + data.value + ",size:" + JSON.stringify(size) +
+                ",width:" + JSON.stringify(width) + ",height:" + JSON.stringify(height));
+        }
+
+        function GetRemoteVideoSnapshotEx() {
+            var data = new Object();
+            var size = new Object();
+            var width = new Object();
+            var height = new Object();
+
+            var result = ECSDK.GetRemoteVideoSnapshotEx(document.getElementById("remoteSnapshotCallId").value,
+                data, size, width, height);
+
+            insertLog("GetRemoteVideoSnapshotEx,data:" + data.value + ",size:" + JSON.stringify(size) +
+                ",width:" + JSON.stringify(width) + ",height:" + JSON.stringify(height));
+        }
+
+        function UploadVTMFile() {
+        	var matchKey = {};
+        	var result = ECSDK.UploadVTMFile(matchKey,
+				document.getElementById("UploadVTMFile_companyId").value,
+				document.getElementById("UploadVTMFile_companyPwd").value,
+				document.getElementById("UploadVTMFile_fileName").value,
+				document.getElementById("UploadVTMFile_callbackUrl").value);
+
+        	insertLog("UploadVTMFile:" + result + ",matchkey:" + matchKey.value);
+        }
+
+        function UploadVTMBuf() {
+        	var matchKey = {};
+        	var result = ECSDK.UploadVTMBuf(matchKey,
+				document.getElementById("UploadVTMBuf_companyId").value,
+				document.getElementById("UploadVTMBuf_companyPwd").value,
+				document.getElementById("UploadVTMBuf_Name").value,
+				document.getElementById("UploadVTMBuf_Data").value,
+				document.getElementById("UploadVTMBuf_callbackUrl").value);
+
+        	insertLog("UploadVTMBuf:" + result + ",matchkey:" + matchKey.value);
+        }
+
+        function StartRecordScreen() {
+            var result = ECSDK.StartRecordScreen(document.getElementById("recordScreenCallId").value,
+                document.getElementById("recordScreenFileName").value,
+                640,
+                10,
+                0);
+            insertLog("StartRecordScreen:" + result);
+        }
+
+        function StopRecordScreen() {
+            var result = ECSDK.StopRecordScreen(document.getElementById("stopRecordScreenCallId").value);
+            insertLog("StopRecordScreen:" + result);
+
+        }
+
+        function DeleteMessage() {
+            var matchKey = new Object();
+            var result = ECSDK.DeleteMessage(matchKey, 0, "1234567890");
+            insertLog("DeleteMessage:" + result + ",matchKey:" + JSON.stringify(matchKey));
+        }
+
+    </script>
+<!-- 注册回调事件-->
+<script type="text/javascript">
+    function RegisterCallBack(obj, name, proc) {
+        if (typeof (proc) != "function")
+            return;
+        if (window.ActiveXObject || "ActiveXObject" in window) {
+            if (window.ActiveXObject && obj.attachEvent) {
+                obj.attachEvent(name, proc);
+            } else {
+                AttachIE11Event(obj, name, proc);
+            }
+        } else {
+            obj[name] = proc;
+        }
+    }
+
+    function AttachIE11Event(obj, _strEventId, _functionCallback) {
+        var nameFromToStringRegex = /^function\s?([^\s(]*)/;
+        var paramsFromToStringRegex = /\(\)|\(.+\)/;
+        var params = _functionCallback.toString().match(paramsFromToStringRegex)[0];
+        var functionName = _functionCallback.name || _functionCallback.toString().match(nameFromToStringRegex)[1];
+        var handler;
+        try {
+            handler = document.createElement("script");
+            handler.setAttribute("for", obj.id);
+        } catch (ex) {
+            handler = document.createElement('<script for="' + obj.id + '">');
+        }
+        handler.event = _strEventId + params;
+        handler.appendChild(document.createTextNode("return " + functionName + params + ";"));
+        document.body.appendChild(handler);
+    }
+</script>
+
+    <!-- 事件 -->
+<script type="text/javascript">
+    function onLogInfo(msg) {
+        insertLog("onLogInfo:" + msg);
+    }
+
+    function onLogOut(msg) {
+        insertLog("onLogOut:" + msg);
+    }
+
+    function onConnectState(msg)
+    {
+        insertLog("onConnectState:" + msg.code + ":" + msg.reason);
+    }
+
+    function onSetPersonInfo(matchKey, reason, version) {
+        insertLog("onSetPersonInfo, matchKey:" + matchKey + ",reason:" + reason + ",version:" + version);
+    }
+
+    function onGetPersonInfo(matchKey, reason, personInfo)
+    {
+        insertLog("onGetPersonInfo, matchKey:" + matchKey + ",reason:" + reason + ",personInfo:" + JSON.stringify(personInfo));
+    }
+
+    function onGetUserState(matchKey, reason, states) {
+        insertLog("onGetUserState, matchKey:" + matchKey + ",reason:" + reason + ",states:" + JSON.stringify(states));
+    }
+
+    function onPublishPresence(matchKey, reason) {
+        insertLog("onPublishPresence, matchKey:" + matchKey + ",reason:" + reason);
+    }
+
+    function onReceiveFriendsPublishPresence(states) {
+        insertLog("onReceiveFriendsPublishPresence:" + JSON.stringify(states));
+    }
+    
+    function onSoftVersion(softVersion, updateMode, updateDesc)
+    {
+        insertLog("onSoftVersion:" + softVersion + ":" + updateMode + ":" + updateDesc);
+    }
+
+    function onGetOnlineMultiDevice(matchKey, reason, multiDeviceStates)
+    {
+        insertLog("onGetOnlineMultiDevice:" + matchKey + ":" + reason + ":" + JSON.stringify(multiDeviceStates));
+    }
+
+    function onReceiveMultiDeviceState(multiDeviceStates) {
+        insertLog("onReceiveMultiDeviceState:" + JSON.stringify(multiDeviceStates));
+    }
+
+    function onMakeCallBack(matchKey,reason) {
+        insertLog("onMakeCallBack:matchKey:" + matchKey + ",reason:" + reason);
+    }
+
+    function onCallEvents(reason, call) {
+        document.getElementById("acceptCallId").value = call.callid;
+        document.getElementById("releaseCallId").value = call.callid;
+        document.getElementById("localSnapshotCallId").value = call.callid;
+        document.getElementById("remoteSnapshotCallId").value = call.callid;
+        document.getElementById("recordScreenCallId").value = call.callid;
+        document.getElementById("stopRecordScreenCallId").value = call.callid;
+        callid = call.callid;
+
+        insertLog("onCallEvents:reason:" + reason + ",call:" + JSON.stringify(call));
+    }
+
+    function onCallIncoming(coming) {
+        document.getElementById("acceptCallId").value = coming.callid;
+        document.getElementById("releaseCallId").value = coming.callid;
+        document.getElementById("localSnapshotCallId").value = coming.callid;
+        document.getElementById("remoteSnapshotCallId").value = coming.callid;
+        document.getElementById("recordScreenCallId").value = coming.callid;
+        document.getElementById("stopRecordScreenCallId").value = coming.callid;
+        callid = coming.callid;
+
+        insertLog("onCallIncoming:" + JSON.stringify(coming));
+    }
+
+    function onDtmfReceived(callid, dtmf) {
+        insertLog("onDtmfReceived,callid:" + callid + ",dtmf:" + dtmf);
+    }
+
+    function onSwitchCallMediaTypeRequest(callid, video) {
+        insertLog("onSwitchCallMediaTypeRequest,callid:" + callid + ",video:" + video);
+    }
+
+    function onSwitchCallMediaTypeResponse(callid, video) {
+        insertLog("onSwitchCallMediaTypeResponse,callid:" + callid + ",video：" + video);
+    }
+    
+    function onRemoteVideoRatio(callid, width, height, type, memeber) {
+        insertLog("onRemoteVideoRatio,callid:" + callid + ",width:" + width + ",height:" + height + ",type:" + type +
+            ",memeber:" + memeber);
+    }
+
+    function onOfflineMessageCount(count)
+    {
+        insertLog("onOfflineMessageCount:" + count);
+    }
+
+    function onGetOfflineMessage()
+    {
+        var count = 2;
+        insertLog("onGetOfflineMessage");
+        return count;
+    }
+
+    function onOfflineMessageComplete()
+    {
+        insertLog("onOfflineMessageComplete:");
+    }
+
+    function onReceiveOfflineMessage(msg)
+    {
+        insertLog("onReceiveOfflineMessage:" + JSON.stringify(msg));
+    }
+
+    function onReceiveMessage(msg)
+    {
+        insertLog("onReceiveMessage:" + JSON.stringify(msg));
+    }
+
+    function onReceiveFile(msg)
+    {
+        document.getElementById("DownloadFileMessage_sender").value = msg.sender;
+        document.getElementById("DownloadFileMessage_recv").value = msg.receiver;
+        document.getElementById("DownloadFileMessage_url").value = msg.fileUrl;
+        document.getElementById("DownloadFileMessage_fileName").value = "d:\\" + msg.fileName;
+        document.getElementById("DownloadFileMessage_msgId").value = msg.msgId;
+        document.getElementById("DownloadFileMessage_type").value = msg.msgType;
+        insertLog("onReceiveFile:" + JSON.stringify(msg));
+    }
+
+    function onDownloadFileComplete(matchKey,reason,msg)
+    {
+        insertLog("onDownloadFileComplete,matchKey:" + matchKey + ",reason:" + reason + ",msg:" + JSON.stringify(msg));
+    }
+
+    function onRateOfProgressAttach(matchKey, rateSize, fileSize, msg)
+    {
+        insertLog("onRateOfProgressAttach,matchKey:" + matchKey + ",rateSize:" + rateSize + ",fileSize:"
+            + fileSize + ",msg:" + JSON.stringify(msg));
+    }
+
+    function onSendMediaFile(matchKey,reason,msg)
+    {
+        insertLog("onSendMediaFile,matchKey:" + matchKey + ",reason:" + reason + ",msg:" + JSON.stringify(msg));
+    }
+
+    function onSendTextMessage(matchKey,reason,msg)
+    {
+        insertLog("onSendTextMessage,matchKey:" + matchKey + ",reason:" + reason + ",msg:" + JSON.stringify(msg));
+    }
+
+    function onDeleteMessage(matchKey, reason, type, msgId) {
+        insertLog("onDeleteMessage,matchKey:" + matchKey + ",reason" + reason + ",type:" + type + ",msgId:" + msgId);
+    }
+
+    function onOperateMessage(tcpMsgIdOut, reason)
+    {
+    	insertLog("onOperateMessage,tcpMsgIdOut:" + tcpMsgIdOut + ",reason" + reason);
+    }
+
+    function onReceiveOpreateNoticeMessage(msg)
+    {
+    	insertLog("onReceiveOpreateNoticeMessage:" + JSON.stringify(msg));
+    }
+
+    function onUploadVTMFileOrBuf(matchKey, reason, url){
+    	insertLog("onUploadVTMFileOrBuf,matchKey:" + matchKey + ",reason" + reason + ",url:" + url);
+    }
+
+    function onCreateGroup(matchKey,reason,info)
+    {
+        insertLog("onCreateGroup,matchKey:" + matchKey + ",reason:" + reason + ",info:" + info);
+    }
+
+    function onDismissGroup(matchKey,reason,groupId)
+    {
+        insertLog("onDismissGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId);
+    }
+
+    function onQuitGroup(matchKey,reason,groupId)
+    {
+        insertLog("onQuitGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId);
+    }
+
+    function onJoinGroup(matchKey,reason,groupId)
+    {
+        insertLog("onJoinGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId);
+    }
+
+    function onReplyRequestJoinGroup(matchKey,reason,groupId,member,confirm)
+    {
+        insertLog("onReplyRequestJoinGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",member:" + member + ",confirm:" + confirm);
+    }
+
+    function onInviteJoinGroup(matchKey,reason,groupId,members,confirm)
+    {
+        insertLog("onInviteJoinGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",members:" + JSON.stringify(members) + ",confirm:" + confirm);
+    }
+
+    function onReplyInviteJoinGroup(matchKey, reason, groupId, member, confirm) {
+        insertLog("onReplyInviteJoinGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",member:" + member + ",confirm:" + confirm);
+    }
+
+    function onQueryOwnGroup(matchKey,reason,group)
+    {
+        insertLog("onQueryOwnGroup,matchKey:" + matchKey + ",reason:" + reason + ",group:" + JSON.stringify(group));
+    }
+
+    function onQueryGroupDetail(matchKey,reason,detail)
+    {
+        insertLog("onQueryGroupDetail,matchKey:" + matchKey + ",reason:" + reason + ",detail:" + JSON.stringify(detail));
+    }
+
+    function onModifyGroup(matchKey,reason,info)
+    {
+        insertLog("onModifyGroup,matchKey:" + matchKey + ",reason:" + reason + ",info:" + JSON.stringify(info));
+    }
+
+    function onSearchPublicGroup(matchKey,reason,searchType,keyword,groups,pageNo)
+    {
+    	insertLog("onSearchPublicGroup,matchKey:" + matchKey + ",reason:" + reason + ",searchType:" + searchType + ",keyword:" +
+            keyword + ",groups:" + JSON.stringify(groups) + ",pageNo:" + pageNo);
+    }
+
+    function onQueryGroupMember(matchKey,reason,groupId,member)
+    {
+        insertLog("onQueryGroupMember,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",member:" + JSON.stringify(member));
+    }
+
+    function onDeleteGroupMember(matchKey,reason,groupId,member)
+    {
+        insertLog("onDeleteGroupMember,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",member:" + member);
+    }
+
+    function onQueryGroupMemberCard(matchKey,reason,card)
+    {
+        insertLog("onQueryGroupMemberCard,matchKey:" + matchKey + ",reason:" + reason + ",card:" + JSON.stringify(card));
+    }
+
+    function onModifyGroupMemberCard(matchKey, reason, card)
+    {
+        insertLog("onModifyGroupMemberCard,matchKey:" + matchKey + ",reason:" + reason + ",card:" + JSON.stringify(card));
+    }
+
+    function onForbidMemberSpeakGroup(matchKey,reason,groupId,member,isBan)
+    {
+        insertLog("onForbidMemberSpeakGroup,matchKey:" + matchKey + ",reason:" + reason + ",groupId:" + groupId + ",member:" + member
+            + ",isBan:" + isBan);
+    }
+
+    function onSetGroupMessageRule(matchKey,reason,groupid, notice)
+    {
+        insertLog("onSetGroupMessageRule,matchKey:" + matchKey + ",reason:" + reason + ",groupid:" + groupid + ",notice:" + notice);
+    }
+
+    function onReceiveGroupNoticeMessage(msg)
+    {
+        insertLog("onReceiveGroupNoticeMessage:" + JSON.stringify(msg));
+    }
+
+    function onRecordingTimeOut(ms,sessionId)
+    {
+        insertLog("onRecordingTimeOut,ms:" + ms + ",sessionId:" + sessionId);
+    }
+
+    function onFinishedPlaying(sessionId,reason)
+    {
+        insertLog("onFinishedPlaying,sessionId:" + sessionId + ",reason:" + reason);
+    }
+
+    function onRecordingAmplitude(amplitude,sessionId)
+    {
+        insertLog("onRecordingAmplitude,amplitude:" + amplitude + ",sessionId:" + sessionId);
+    }
+
+    function onMeetingIncoming(come)
+    {
+        insertLog("onMeetingIncoming:" + JSON.stringify(come));
+    }
+
+    function onReceiveInterphoneMeetingMessage(msg)
+    {
+        insertLog("onReceiveInterphoneMeetingMessage:" + JSON.stringify(msg));
+    }
+
+    function onReceiveVoiceMeetingMessage(msg)
+    {
+        insertLog("onReceiveVoiceMeetingMessage:" + JSON.stringify(msg));
+    }
+
+    function onReceiveVideoMeetingMessage(msg)
+    {
+        insertLog("onReceiveVideoMeetingMessage:" + JSON.stringify(msg));
+        var result = ECSDK.RequestConferenceMemberVideo(msg.roomid, "", msg.sender, remoteView.HWND, 2);
+        insertLog("RequestConferenceMemberVideo:" + result);
+    }
+
+    function onCreateMultimediaMeeting(matchKey,reason,info)
+    {
+        insertLog("onCreateMultimediaMeeting,matchKey:" + matchKey + ",reason:" + reason + ",info:" + JSON.stringify(info));
+    }
+
+    function onJoinMeeting(reason,conferenceId)
+    {
+        insertLog("onJoinMeeting,reason:" + reason + ",conferenceId:" + conferenceId);
+    }
+
+    function onExitMeeting(conferenceId)
+    {
+        insertLog("onExitMeeting:" + conferenceId);
+    }
+
+    function onQueryMeetingMembers(matchKey,reason,conferenceId,members)
+    {
+        insertLog("onQueryMeetingMembers,matchKey:" + matchKey + ",reason:" + reason + ",conferenceId:" + conferenceId +
+            ",members:" + members);
+    }
+
+    function onDismissMultiMediaMeeting(matchKey,reason,conferenceId)
+    {
+        insertLog("onDismissMultiMediaMeeting,matchKey:" + matchKey + ",reason:" + reason + ",conferenceId:" + conferenceId);
+    }
+
+    function onQueryMultiMediaMeetings(matchKey,reason,meetingInfo)
+    {
+        insertLog("onQueryMultiMediaMeetings,matchKey:" + matchKey + ",reason:" + reason + "meetingInfo:" + JSON.stringify(meetingInfo));
+    }
+
+    function onDeleteMemberMultiMediaMeeting(matchKey,reason,meetingInfo)
+    {
+        insertLog("onDeleteMemberMultiMediaMeeting,matchKey:" + matchKey + ",reason:" + reason + ",meetingInfo:" + meetingInfo);
+    }
+
+    function onInviteJoinMultiMediaMeeting(matchKey,reason,Info)
+    {
+        insertLog("onInviteJoinMultiMediaMeeting,matchKey:" + matchKey + ",reason:" + reason + ",Info:" + Info);
+    }
+
+    function onCreateInterphoneMeeting(matchKey,reason,interphoneId)
+    {
+        insertLog("onCreateInterphoneMeeting,matchKey:" + matchKey + ",reason:" + reason + ",interphoneId:" + interphoneId);
+    }
+
+    function onExitInterphoneMeeting(interphoneId)
+    {
+        insertLog("onExitInterphoneMeeting,interphoneId:" + interphoneId);
+    }
+
+    function onSetMeetingSpeakListen(matchKey,reason,info)
+    {
+    	insertLog("onSetMeetingSpeakListen:matchKey:" + matchKey + ",reason:" + reason + ",info:" + JSON.stringify(info));
+    }
+
+    function onControlInterphoneMic(matchKey,reason,controller,interphoneId,requestIsControl)
+    {
+        insertLog("onControlInterphoneMic,matchKey:" + matchKey + ",reason:" + reason + ",controller:" + controller + 
+            ",interphoneId:" + interphoneId + ",requestIsControl:" + requestIsControl);
+    }
+
+    function onPublishVideo(matchKey,reason,conferenceId)
+    {
+        insertLog("onPublishVideo,matchKey:" + matchKey + ",reason:" + reason + ",conferenceId:" + conferenceId);
+    }
+
+    function onUnpublishVideo(matchKey,reason,conferenceId)
+    {
+        insertLog("onUnpublishVideo,matchKey:" + matchKey + ",reason:" + reason + ",conferenceId:" + conferenceId);
+    }
+
+    function onRequestConferenceMemberVideo(reason,conferenceId,member,type)
+    {
+        insertLog("onRequestConferenceMemberVideo,reason:" + reason + ",conferenceId:" + conferenceId + ",member:" + member + ",type:" + type);
+    }
+
+    function onCancelConferenceMemberVideo(reason,conferenceId,member,type)
+    {
+        insertLog("onCancelConferenceMemberVideo,reason:" + reason + ",conferenceId:" + conferenceId + ",member:" + member + ",type:" + type);
+    }
+
+    function onRequestShareDesktop(msg)
+    {
+        insertLog("onRequestShareDesktop:" + msg);
+    }
+
+    function onStopShareDesktop(msg)
+    {
+        insertLog("onStopShareDesktop:" + msg);
+    }
+
+    function CancelRequestShareDesktopEvent(msg)
+    {
+        insertLog("CancelRequestShareDesktopEvent:" + msg);
+    }
+
+    function onRequestRemoteControl(msg) {
+        insertLog("onRequestRemoteControl:" + msg);
+    }
+
+    function CancelRequestDesktopControlEvent(msg)
+    {
+        insertLog("CancelRequestDesktopControlEvent:" + msg);
+    }
+
+    function onStopRemoteControl(msg)
+    {
+        insertLog("onStopRemoteControl:" + msg);
+    }
+
+    function onStartDesktopShare(msg)
+    {
+        insertLog("onStartDesktopShare:" + msg);
+    }
+
+    function onRequestShareDesktopResult(msg)
+    {
+        insertLog("onRequestShareDesktopResult:" + msg);
+    }
+
+    function onRequestRemoteControlResult(msg)
+    {
+        insertLog("onRequestRemoteControlResult:" + msg);
+    }
+
+    function onStopRemoteControlResult(msg)
+    {
+        insertLog("onStopRemoteControlResult:" + msg);
+    }
+
+    function TellerShareDesktopWndSizeEvent(msg)
+    {
+        insertLog("TellerShareDesktopWndSizeEvent:" + msg);
+    }
+
+    function onStopShareDesktopResult(msg)
+    {
+        insertLog("onStopShareDesktopResult:" + msg);
+    }
+
+    function TellerCancelRequestDesktopControlEvent(msg)
+    {
+        insertLog("TellerCancelRequestDesktopControlEvent:" + msg);
+    }
+
+</script>
+
+
+
+<!--//其他函数-->
+<script type="text/javascript">
+
+    function insertLog(msg) {
+        var newItem = document.createElement("li")
+        var textnode = document.createTextNode(msg)
+        newItem.appendChild(textnode)
+
+        var list = document.getElementById("textbody")
+        list.insertBefore(newItem, list.childNodes[0]);
+
+    }
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,281 @@
+// ECBrowserPlugin.idl : IDL source for ECBrowserPlugin
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ECBrowserPlugin.tlb) and marshalling code.
+
+#include "olectl.h"
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(DAD08D4A-ECB4-47F2-A842-5ADF0433E5B4),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IATLECSDK : IDispatch{
+	[id(1)] HRESULT Initialize([out, retval] LONG* result);
+	[id(2)] HRESULT UnInitialize([out, retval] LONG* result);
+	[id(3)] HRESULT Login([in] IDispatch* loginInfo, [out, retval] LONG* result);
+	[id(4)] HRESULT SetTraceFlag([in] LONG level, [in] BSTR logFileName);
+	[id(5)] HRESULT SetServerEnvType([in] LONG nEnvType, [in] BSTR xmlFileName, [out, retval] LONG* result);
+	[id(6)] HRESULT SetInternalDNS([in] VARIANT_BOOL enable, [in] BSTR dns, [in] LONG port, [out, retval] LONG* result);
+	[id(7)] HRESULT Logout([out, retval] LONG* result);
+	[id(8)] HRESULT SetPersonInfo([in] IDispatch* matchKey, [in] IDispatch* psersonInfo, [out, retval] LONG* result);
+	[id(9)] HRESULT GetPersonInfo([in] IDispatch* matchKey, [in] BSTR username, [out, retval] LONG* result);
+	[id(10)] HRESULT GetUserState([in] IDispatch* matchKey, [in] IDispatch* members, [out, retval] LONG* result);
+	[id(11)] HRESULT QueryErrorDescribe([in] IDispatch* errCodeDes, [in] LONG errCode, [out, retval] LONG* result);
+	[id(12)] HRESULT MakeCallBack([in] IDispatch* matchKey, [in] BSTR caller, [in] BSTR called, [in] BSTR callerDisplay, [in] BSTR calledDisplay, [out, retval] LONG* result);
+	[id(13)] HRESULT MakeCall([in] IDispatch* OutCallid, [in] LONG callType, [in] BSTR called, [out, retval] LONG* result);
+	[id(14)] HRESULT AcceptCall([in] BSTR callId, [out, retval] LONG* result);
+	[id(15)] HRESULT ReleaseCall([in] BSTR callId, [in] LONG reason, [out, retval] LONG* result);
+	[id(16)] HRESULT SendDTMF([in] BSTR callId, [in] BSTR dtmf, [out, retval] LONG* result);
+	[id(17)] HRESULT GetCurrentCall([out, retval] BSTR* result);
+	[id(18)] HRESULT SetMute([in] VARIANT_BOOL mute, [out, retval] LONG* result);
+	[id(19)] HRESULT GetMuteStatus([out, retval] VARIANT_BOOL* result);
+	[id(20)] HRESULT SetSoftMute([in] BSTR callid, [in] VARIANT_BOOL on, [out, retval] LONG* result);
+	[id(21)] HRESULT GetSoftMuteStatus([in] BSTR callid, [in] IDispatch* bMute, [out, retval] LONG* result);
+	[id(22)] HRESULT SetAudioConfigEnabled([in] LONG type, [in] VARIANT_BOOL enabled, [in] LONG mode, [out, retval] LONG* result);
+	[id(23)] HRESULT GetAudioConfigEnabled([in] LONG type, [in] IDispatch* enabled, [in] IDispatch* mode, [out, retval] LONG* result);
+	[id(24)] HRESULT SetCodecEnabled([in] LONG type, [in] VARIANT_BOOL enabled, [out, retval] LONG* result);
+	[id(25)] HRESULT GetCodecEnabled([in] LONG type, [out, retval] VARIANT_BOOL* result);
+	[id(26)] HRESULT SetCodecNack([in] VARIANT_BOOL bAudioNack, [in] VARIANT_BOOL bVideoNack, [out, retval] LONG* result);
+	[id(27)] HRESULT GetCodecNack([in] IDispatch* bAudioNack, [in] IDispatch* bVideoNack, [out, retval] LONG* result);
+	[id(28)] HRESULT GetCallStatistics([in] BSTR callId, [in] VARIANT_BOOL bVideo, [in] IDispatch* statistics, [out, retval] LONG* result);
+	[id(29)] HRESULT SetVideoView([in] LONG view, [in] LONG localView, [out, retval] LONG* result);
+	[id(30)] HRESULT SetVideoBitRates([in] LONG bitrates);
+	[id(31)] HRESULT SetRing([in] BSTR fileName, [out, retval] LONG* result);
+	[id(32)] HRESULT SetRingback([in] BSTR fileName, [out, retval] LONG* result);
+	[id(33)] HRESULT RequestSwitchCallMediaType([in] BSTR callId, [in] LONG video, [out, retval] LONG* result);
+	[id(34)] HRESULT ResponseSwitchCallMediaType([in] BSTR callId, [in] LONG video, [out, retval] LONG* result);
+	[id(35)] HRESULT GetCameraInfo([in] IDispatch* cameraInfo, [out, retval] LONG* result);
+	[id(36)] HRESULT SelectCamera([in] LONG cameraIndex, [in] LONG capabilityIndex, [in] LONG fps, [in] LONG rotate, [in] VARIANT_BOOL force, [out, retval] LONG* result);
+	[id(37)] HRESULT GetNetworkStatistic([in] BSTR callId, [in] IDispatch* duration, [in] IDispatch* sendTotalWifi, [in] IDispatch* recvTotalWifi, [out, retval] LONG* result);
+	[id(38)] HRESULT GetSpeakerVolume([in] IDispatch* volume, [out, retval] LONG* result);
+	[id(39)] HRESULT SetSpeakerVolume([in] LONG volume, [out, retval] LONG* result);
+	[id(40)] HRESULT SetDtxEnabled([in] VARIANT_BOOL enabled);
+	[id(41)] HRESULT SetSelfPhoneNumber([in] BSTR phoneNumber);
+	[id(42)] HRESULT SetSelfName([in] BSTR nickName);
+	[id(43)] HRESULT EnableLoudsSpeaker([in] VARIANT_BOOL enable, [out, retval] LONG* result);
+	[id(44)] HRESULT GetLoudsSpeakerStatus([out, retval] VARIANT_BOOL* result);
+	[id(45)] HRESULT ResetVideoView([in] BSTR callid, [in] LONG remoteView, [in] LONG localView, [out, retval] LONG* result);
+	[id(46)] HRESULT SendTextMessage([in] IDispatch* matchKey, [in] BSTR receiver, [in] BSTR message, [in] LONG type, [in] BSTR userdata, [in] IDispatch* msgId, [out, retval] LONG* result);
+	[id(47)] HRESULT SendMediaMessage([in] IDispatch* matchKey, [in] BSTR receiver, [in] BSTR fileName, [in] LONG type, [in] BSTR userdata, [in] IDispatch* msgId, [out, retval] LONG* result);
+	[id(48)] HRESULT DownloadFileMessage([in] IDispatch* matchKey, [in] BSTR sender, [in] BSTR recv, [in] BSTR url, [in] BSTR fileName, [in] BSTR msgId, [in] LONG type, [out, retval] LONG* result);
+	[id(49)] HRESULT CancelUploadOrDownloadNOW([in] ULONG matchKey);
+	[id(50)] HRESULT DeleteMessage([in] IDispatch* matchKey, [in] LONG type, [in] BSTR msgId, [out, retval] LONG* result);
+	[id(51)] HRESULT OperateMessage([in] IDispatch* matchKey, [in] BSTR version, [in] BSTR msgId, [in] LONG type, [out, retval] LONG* result);
+	[id(52)] HRESULT CreateGroup([in] IDispatch* matchKey, [in] BSTR groupName, [in] LONG type, [in] BSTR province, [in] BSTR city, [in] LONG scope, [in] BSTR declared, [in] LONG permission, [in] LONG isDismiss, [in] BSTR groupDomain, [in] VARIANT_BOOL isDiscuss, [out, retval] LONG* result);
+	[id(53)] HRESULT DismissGroup([in] IDispatch* matchKey, [in] BSTR groupid, [out, retval] LONG* result);
+	[id(54)] HRESULT QuitGroup([in] IDispatch* matchKey, [in] BSTR groupid, [out, retval] LONG* result);
+	[id(55)] HRESULT JoinGroup([in] IDispatch* matchKey, [in] BSTR groupid, [in] BSTR declared, [out, retval] LONG* result);
+	[id(56)] HRESULT ReplyRequestJoinGroup([in] IDispatch* matchKey, [in] BSTR groupId, [in] BSTR member, [in] LONG confirm, [out, retval] LONG* result);
+	[id(57)] HRESULT InviteJoinGroup([in] IDispatch* matchKey, [in] BSTR groupId, [in] BSTR declard, [in] IDispatch* members, [in] LONG confirm, [out, retval] LONG* result);
+	[id(58)] HRESULT ReplyInviteJoinGroup([in] IDispatch* matchKey, [in] BSTR groupId, [in] BSTR invitor, [in] LONG confirm, [out, retval] LONG* result);
+	[id(59)] HRESULT QueryOwnGroup([in] IDispatch* matchKey, [in] BSTR borderGroupid, [in] LONG pageSize, [in] LONG target, [out, retval] LONG* result);
+	[id(60)] HRESULT QueryGroupDetail([in] IDispatch* matchKey, [in] BSTR groupId, [out, retval] LONG* result);
+	[id(61)] HRESULT ModifyGroup([in] IDispatch* matchKey, [in] IDispatch* groupInfo, [out, retval] LONG* result);
+	[id(62)] HRESULT SearchPublicGroups([in] IDispatch* matchKey, [in] LONG searchType, [in] BSTR keyword, [in,defaultvalue(1)] LONG pageNo, [in,defaultvalue(10)]LONG pageSize, [out, retval] LONG* result);
+	[id(63)] HRESULT QueryGroupMember([in] IDispatch* matchKey, [in] BSTR groupId, [in] BSTR borderMember, [in] LONG pageSize, [out, retval] LONG* result);
+	[id(64)] HRESULT DeleteGroupMember([in] IDispatch* matchKey, [in] BSTR groupId, [in] BSTR member, [out, retval] LONG* result);
+	[id(65)] HRESULT QueryGroupMemberCard([in] IDispatch* matchKey, [in] BSTR groupid, [in] BSTR member, [out, retval] LONG* result);
+	[id(66)] HRESULT ModifyMemberCard([in] IDispatch* matchKey, [in] IDispatch* card, [out, retval] LONG* result);
+	[id(67)] HRESULT ForbidMemberSpeak([in] IDispatch* matchKey, [in] BSTR groupid, [in] BSTR member, [in] LONG isBan, [out, retval] LONG* result);
+	[id(68)] HRESULT SetGroupMessageRule([in] IDispatch* matchKey, [in] BSTR groupid, [in] VARIANT_BOOL notice, [out, retval] LONG* result);
+	[id(69)] HRESULT StartVoiceRecording([in] BSTR fileName, [in] BSTR sessionId, [out, retval] LONG* result);
+	[id(70)] HRESULT StopVoiceRecording();
+	[id(71)] HRESULT PlayVoiceMsg([in] BSTR fileName, [in] BSTR sessionId, [out, retval] LONG* result);
+	[id(72)] HRESULT StopVoiceMsg();
+	[id(73)] HRESULT GetVoiceDuration([in] BSTR fileName, [in] IDispatch* duration, [out, retval] LONG* result);
+	[id(74)] HRESULT RequestConferenceMemberVideo([in] BSTR conferenceId, [in] BSTR conferencePassword, [in] BSTR member, [in] LONG videoWindow, [in] LONG type, [out, retval] LONG* result);
+	[id(75)] HRESULT CancelMemberVideo([in] BSTR conferenceId, [in] BSTR conferencePassword, [in] BSTR member, [in] LONG type, [out, retval] LONG* result);
+	[id(76)] HRESULT ResetVideoConfWindow([in] BSTR conferenceId, [in] BSTR member, [in] LONG newWindow, [in] LONG type, [out, retval] LONG* result);
+	[id(77)] HRESULT CreateMultimediaMeeting([in] IDispatch* matchKey, [in] LONG meetingType, [in] BSTR meetingName, [in] BSTR password, [in] BSTR keywords, [in] LONG voiceMode, [in] LONG square, [in] VARIANT_BOOL bAutoJoin, [in] VARIANT_BOOL autoClose, [in] VARIANT_BOOL autoDelete, [out, retval] LONG* result);
+	[id(78)] HRESULT JoinMeeting([in] LONG meetingType, [in] BSTR conferenceId, [in] BSTR password, [out, retval] LONG* result);
+	[id(79)] HRESULT ExitMeeting([in] BSTR conferenceId, [out, retval] LONG* result);
+	[id(80)] HRESULT QueryMeetingMembers([in] IDispatch* matchKey, [in] LONG meetingType, [in] BSTR conferenceId, [out, retval] LONG* result);
+	[id(81)] HRESULT DismissMultiMediaMeeting([in] IDispatch* matchKey, [in] LONG meetingType, [in] BSTR conferenceId, [out, retval] LONG* result);
+	[id(82)] HRESULT QueryMultiMediaMeetings([in] IDispatch* matchKey, [in] LONG meetingType, [in] BSTR keywords, [out, retval] LONG* result);
+	[id(83)] HRESULT InviteJoinMultiMediaMeeting([in] IDispatch* matchKey, [in] BSTR conferenceId, [in] IDispatch* members, [in] VARIANT_BOOL blanding, [in] VARIANT_BOOL isSpeak, [in] VARIANT_BOOL isListen, [in] BSTR disNumber, [in] BSTR userData, [out, retval] LONG* result);
+	[id(84)] HRESULT DeleteMemberMultiMediaMeeting([in] IDispatch* matchKey, [in] LONG meetingType, [in] BSTR conferenceId, [in] BSTR member, [in] VARIANT_BOOL isVoIP, [out, retval] LONG* result);
+	[id(85)] HRESULT PublishVideo([in] IDispatch* matchKey, [in] BSTR conferenceId, [out, retval] LONG* result);
+	[id(86)] HRESULT UnpublishVideo([in] IDispatch* matchKey, [in] BSTR conferenceId, [out, retval] LONG* result);
+	[id(87)] HRESULT CreateInterphoneMeeting([in] IDispatch* matchKey, [in] IDispatch* members, [out, retval] LONG* result);
+	[id(88)] HRESULT ControlInterphoneMic([in] IDispatch* matchKey, [in] VARIANT_BOOL isControl, [in] BSTR interphoneId, [out, retval] LONG* result);
+    [id(89)] HRESULT SetServerAddress([in] BSTR connector, [in] LONG connectorPort, [in] BSTR fileServer, [in] LONG fileSeverPort, [out, retval] LONG* result);
+    [propget, id(90)] HRESULT version([out, retval] BSTR* pVal);
+	[propget, id(112)] HRESULT appDataDir([out, retval] BSTR* pVal);
+
+	//远程控制
+	[id(91), helpstring("RequestShareDesktop")] HRESULT RequestShareDesktop([in] BSTR remoteId, [in] BSTR vncServerIP, [in] LONG vncServerPort, [in] OLE_HANDLE wnd, [out, retval] LONG* result);
+	[id(92), helpstring("StopShareDesktop")] HRESULT StopShareDesktop([out, retval] LONG* result);
+	[id(93), helpstring("RequestRemoteControl")] HRESULT RequestRemoteControl([out, retval] LONG* result);
+	[id(94), helpstring("StopRemoteControl")] HRESULT StopRemoteControl([out, retval] LONG* result);
+	[id(95), helpstring("RefreshDesktopWnd")] HRESULT mediaTellerRefreshDesktopWnd([out, retval] LONG* result);
+	[id(96), helpstring("RefreshDesktopWndByCoordinate")] HRESULT mediaTellerRefreshDesktopWndByCoordinate([in] INT x, [in] INT y, [out, retval] LONG* result);
+	[id(97), helpstring("SetShareDesktopDisplaySize")] HRESULT mediaTellerSetShareDesktopDisplaySize([in] INT w, [in] INT h, [out, retval] LONG* result);
+	[id(98), helpstring("RejectRemoteControl")] HRESULT mediaTellerRejectRemoteControl([out, retval] LONG* result);
+
+	//远程控制
+	[id(99)] HRESULT SetDesktopWnd([in] OLE_HANDLE  hWnd, [out, retval] LONG * result);
+	[id(100)] HRESULT AcceptShareDesktop([out, retval] SHORT * result);
+	[id(101)] HRESULT AcceptRemoteControl([out, retval] SHORT * result);
+	[id(102)] HRESULT mediaTerminalRejectShareDesktop([out, retval] SHORT * result);
+	[id(103)] HRESULT mediaTerminalRejectRemoteControl([out, retval] SHORT * result);
+	[id(104)] HRESULT mediaTerminalRequestRemoteControl([out, retval] SHORT * result);
+	[id(105)] HRESULT GetLocalVideoSnapshotEx([in] BSTR callid, [in] IDispatch* pictureData, [in] IDispatch* size, [in] IDispatch* width, [in] IDispatch* height, [out, retval] LONG* result);
+	[id(106)] HRESULT GetRemoteVideoSnapshotEx([in] BSTR callid, [in] IDispatch* pictureData, [in] IDispatch* size, [in] IDispatch* width, [in] IDispatch* height, [out, retval] LONG* result);
+	[id(107)] HRESULT StartRecordScreen([in] BSTR callid, [in] BSTR fileName, [in] LONG bitrate, [in] LONG fps, [in] LONG type, [out, retval] LONG* result);
+	[id(108)] HRESULT StartRecordScreenEx([in] BSTR callid, [in] BSTR fileName, [in] LONG bitrate, [in] LONG fps, [in] LONG type, [in] LONG left, [in] LONG top, [in] LONG width, [in] LONG height, [out, retval] LONG* result);
+	[id(109)] HRESULT StopRecordScreen([in] BSTR callid, [out, retval] LONG* result);
+	[id(110)] HRESULT UploadVTMFile([in] IDispatch* matchKey, [in] BSTR companyId, [in] BSTR companyPwd, [in] BSTR fileName, [in] BSTR callbackUrl, [out, retval] LONG* result);
+	[id(111)] HRESULT UploadVTMBuf([in] IDispatch* matchKey, [in] BSTR companyId, [in] BSTR companyPwd, [in] BSTR Name, [in] BSTR buf, [in] BSTR callbackUrl, [out, retval] LONG* result);
+};
+
+[
+	object,
+	uuid(75C92F37-CEE6-40FF-AE5B-60707103076A),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IATLVideoObject : IDispatch{
+	[propget, bindable, requestedit, id(DISPID_HWND)]
+	HRESULT HWND([out, retval]LONG_PTR* pHWND);
+	[id(1), helpstring("create child window")] HRESULT CreateChild([out, retval] LONG* result);
+	[id(2), helpstring("remove child window")] HRESULT RemoveChild([in] LONG window, [out, retval] LONG* result);
+	[id(3), helpstring("move window")] HRESULT MoveWindow([in] LONG window, [in] LONG x, [in] LONG y, [in] LONG width, [in] LONG height, [out, retval] LONG* result);
+};
+
+[
+	uuid(6E2177B6-E0CB-4FDC-8DD0-2F7D40BBE1E6),
+	version(1.0),
+]
+library ECBrowserPluginLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(30FF9AE3-6994-4E90-9430-622EFC1AB136)		
+	]
+	dispinterface _IATLECSDKEvents
+	{
+		properties:
+		methods:
+			[id(1)] void onLogInfo([in] BSTR info);
+			[id(2)] void onLogOut([in]  LONG reason);
+			[id(3)] void onConnectState([in] IDispatch* state);
+			[id(4)] void onSetPersonInfo([in] ULONG matchKey, [in] LONG reason, [in] ULONG version);
+			[id(5)] void onGetPersonInfo([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* personInfo);
+			[id(6)] void onGetUserState([in] ULONG matchKey, [in] LONG reason, [in] IDispatch * states);
+			[id(7)] void onPublishPresence([in] ULONG matchKey, [in] LONG reason);
+			[id(8)] void onReceiveFriendsPublishPresence([in] IDispatch * states);
+			[id(9)] void onSoftVersion([in] BSTR softVersion, [in] LONG updateMode, [in] BSTR updateDesc);
+			[id(10)] void onGetOnlineMultiDevice([in] ULONG matchKey, [in] LONG reason, [in] IDispatch * multiDeviceStates);
+			[id(11)] void onReceiveMultiDeviceState([in] IDispatch * multiDeviceStates);
+			[id(12)] void onMakeCallBack([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* cbInfo);
+			[id(13)] void onCallEvents([in] LONG reason, [in] IDispatch* call);
+			[id(14)] void onCallIncoming([in] IDispatch* coming);
+			[id(15)] void onDtmfReceived([in] BSTR callId, [in] BSTR dtmf);
+			[id(16)] void onSwitchCallMediaTypeRequest([in] BSTR callId, [in] LONG video);
+			[id(17)] void onSwitchCallMediaTypeResponse([in] BSTR callId, [in] LONG video);
+			[id(18)] void onRemoteVideoRatio([in] BSTR CallidOrConferenceId, [in] LONG width, [in] LONG height, [in] LONG type, [in] BSTR member);
+			
+			[id(19)] void onOfflineMessageCount([in] LONG count);
+			[id(20)] void onGetOfflineMessage([out, retval] LONG * result);
+			[id(21)] void onOfflineMessageComplete();
+			[id(22)] void onReceiveOfflineMessage([in] IDispatch* pMsg);
+			[id(23)] void onReceiveMessage([in] IDispatch* pMsg);
+			[id(24)] void onReceiveFile([in] IDispatch* pFileInfo);
+			[id(25)] void onDownloadFileComplete([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* msg);
+			[id(26)] void onRateOfProgressAttach([in] ULONG matchKey, [in] ULONG rateSize, [in] ULONG fileSize, [in] IDispatch* msg);
+			[id(27)] void onSendTextMessage([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* msg);
+			[id(28)] void onSendMediaFile([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* msg);
+			[id(29)] void onDeleteMessage([in] ULONG matchKey, [in] LONG reason, [in] LONG type, [in] BSTR msgId);
+			[id(30)] void onOperateMessage([in] ULONG tcpMsgIdOut, [in] LONG reason);
+			[id(31)] void onReceiveOpreateNoticeMessage([in] IDispatch* pMsg);
+			[id(32)] void onUploadVTMFileOrBuf([in] ULONG matchKey, [in] LONG reason, [in] BSTR fileUrl);
+
+			/****************************群组接口对应的回调******************************/
+			[id(33)] void onCreateGroup([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* pInfo);
+			[id(34)] void onDismissGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid);
+			[id(35)] void onQuitGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid);
+			[id(36)] void onJoinGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid);
+			[id(37)] void onReplyRequestJoinGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] BSTR member, [in] LONG confirm);
+			[id(38)] void onInviteJoinGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] IDispatch* members, [in] LONG confirm);
+			[id(39)] void onReplyInviteJoinGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] BSTR member, [in] LONG confirm);
+			[id(40)] void onQueryOwnGroup([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* group);
+			[id(41)] void onQueryGroupDetail([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* detail);
+			[id(42)] void onModifyGroup([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* pInfo);
+			[id(43)] void onSearchPublicGroup([in] ULONG matchKey, [in] LONG reason, [in] LONG searchType, [in] BSTR keyword, [in] IDispatch* group,[in] LONG pageNo);
+			[id(44)] void onQueryGroupMember([in] ULONG matchKey, [in] LONG reason,	[in] BSTR groupid, [in] IDispatch* member);
+			[id(45)] void onDeleteGroupMember([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] BSTR member);
+			[id(46)] void onQueryGroupMemberCard([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* card);
+			[id(47)] void onModifyGroupMemberCard([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* pCard);
+			[id(48)] void onForbidMemberSpeakGroup([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] BSTR member, [in] LONG isBan);
+			[id(49)] void onSetGroupMessageRule([in] ULONG matchKey, [in] LONG reason, [in] BSTR groupid, [in] VARIANT_BOOL notice);
+			/****************************服务器下发的群组相关通知******************************/
+			[id(50)] void onReceiveGroupNoticeMessage([in] IDispatch* pMsg);
+
+			/****************************音频播放回调接口******************************/
+			[id(51)] void onRecordingTimeOut([in] LONG ms, [in] BSTR sessionId);
+			[id(52)] void onFinishedPlaying([in] BSTR sessionId, [in] LONG reason);
+			[id(53)] void onRecordingAmplitude([in] DOUBLE amplitude, [in] BSTR sessionId);
+
+			[id(54)] void onMeetingIncoming([in] IDispatch* come);
+			[id(55)] void onReceiveInterphoneMeetingMessage([in] IDispatch* pInterphoneMsg);
+			[id(56)] void onReceiveVoiceMeetingMessage([in] IDispatch* pVoiceMeetingMsg);
+			[id(57)] void onReceiveVideoMeetingMessage([in] IDispatch* pVideoMeetingMsg);
+			[id(58)] void onCreateMultimediaMeeting([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* pInfo);
+			[id(59)] void onJoinMeeting([in] LONG reason, [in] BSTR conferenceId);
+			[id(60)] void onExitMeeting([in] BSTR conferenceId);
+			[id(61)] void onQueryMeetingMembers([in] LONG matchKey, [in] LONG reason, [in] BSTR conferenceId, [in] IDispatch* members);
+			[id(62)] void onDismissMultiMediaMeeting([in] ULONG matchKey, [in] LONG reason, [in] BSTR conferenceId);
+			[id(63)] void onQueryMultiMediaMeetings([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* meetingInfos);
+			[id(64)] void onDeleteMemberMultiMediaMeeting([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* meetingInfo);
+			[id(65)] void onInviteJoinMultiMediaMeeting([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* info);
+			[id(66)] void onCreateInterphoneMeeting([in] ULONG matchKey, [in] LONG reason, [in] BSTR interphoneId);
+			[id(67)] void onExitInterphoneMeeting([in] BSTR interphoneId);
+			[id(68)] void onSetMeetingSpeakListen([in] ULONG matchKey, [in] LONG reason, [in] IDispatch* info);
+			[id(69)] void onControlInterphoneMic([in] ULONG matchKey, [in] LONG reason, [in] BSTR controller, [in] BSTR interphoneId, [in] VARIANT_BOOL requestIsControl);
+			[id(70)] void onPublishVideo([in] ULONG matchKey, [in] LONG reason, [in] BSTR conferenceId);
+			[id(71)] void onUnpublishVideo([in] ULONG matchKey, [in] LONG reason, [in] BSTR conferenceId);
+			[id(72)] void onRequestConferenceMemberVideo([in] LONG reason, [in] BSTR conferenceId, [in] BSTR member, [in] LONG type);
+			[id(73)] void onCancelConferenceMemberVideo([in] LONG reason, [in] BSTR conferenceId, [in] BSTR member, [in] LONG type);
+
+			//远程控制
+			[id(74), helpstring("onRequestShareDesktopResult event")] void onRequestShareDesktopResult([in] BSTR msg);
+			[id(75), helpstring("onStopShareDesktopResult event")] void onStopShareDesktopResult([in] BSTR msg);
+			[id(76), helpstring("onRequestRemoteControlResult event")] void onRequestRemoteControlResult([in] BSTR msg);
+			[id(77), helpstring("onStopRemoteControlResult event")] void onStopRemoteControlResult([in] BSTR msg);
+			[id(78), helpstring("ShareDesktopWndSizeEvent event")] void TellerShareDesktopWndSizeEvent([in] BSTR msg);
+			[id(79), helpstring("CancelRequestDesktopControl event")] void TellerCancelRequestDesktopControlEvent([in] BSTR msg);
+
+			[id(80), helpstring("onRequestShareDesktop")] void onRequestShareDesktop([in] BSTR msg);
+			[id(81), helpstring("onStopShareDesktop")] void onStopShareDesktop([in] BSTR msg);
+			[id(82), helpstring("onStartDesktopShare")] void onStartDesktopShare([in] BSTR msg);
+			[id(83), helpstring("onRequestRemoteControl")] void onRequestRemoteControl([in] BSTR msg);
+			[id(84), helpstring("CancelRequestShareDesktopEvent")] void CancelRequestShareDesktopEvent([in] BSTR msg);
+			[id(85), helpstring("CancelRequestDesktopControlEvent")] void CancelRequestDesktopControlEvent([in] BSTR msg);
+			[id(86), helpstring("onStopRemoteControl")] void onStopRemoteControl([in] BSTR msg);
+	};
+	[
+		uuid(56700691-19C2-4204-85E8-8B15198B13DC),		
+		control
+	]
+	coclass ATLECSDK
+	{
+		[default] interface IATLECSDK;
+		[default, source] dispinterface _IATLECSDKEvents;
+	};
+	[
+		uuid(4CB3537E-EF5A-4493-A3FC-EC14C16C0760),		
+		control
+	]
+	coclass ATLVideoObject
+	{
+		[default] interface IATLVideoObject;
+	};
+};
+

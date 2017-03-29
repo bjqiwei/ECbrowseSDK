@@ -1,0 +1,22 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {4CB3537E-EF5A-4493-A3FC-EC14C16C0760} = s 'ATLVideoObject Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			ForceRemove Control
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 108'
+			MiscStatus = s '0'
+			{
+			    '1' = s '%OLEMISC%'
+			}
+			TypeLib = s '{6E2177B6-E0CB-4FDC-8DD0-2F7D40BBE1E6}'
+			Version = s '1.1.12.27'
+		}
+	}
+}

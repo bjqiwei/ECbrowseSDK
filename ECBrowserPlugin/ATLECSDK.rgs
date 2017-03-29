@@ -1,0 +1,32 @@
+HKCR
+{
+	Cloopen.ECSDK.1 = s 'ATLECSDK Class'
+	{
+		CLSID = s '{56700691-19C2-4204-85E8-8B15198B13DC}'
+	}
+	ECSDK.1 = s 'ATLECSDK Class'
+	{		
+		CurVer = s 'Cloopen.ECSDK.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {56700691-19C2-4204-85E8-8B15198B13DC} = s 'ATLECSDK Class'
+		{
+			ProgID = s 'Cloopen.ECSDK.1'
+			VersionIndependentProgID = s 'ECSDK.1'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			ForceRemove Control
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 106'
+			MiscStatus = s '0'
+			{
+			    '1' = s '%OLEMISC%'
+			}
+			TypeLib = s '{6E2177B6-E0CB-4FDC-8DD0-2F7D40BBE1E6}'
+			Version = s '1.1.12.27'
+		}
+	}
+}
